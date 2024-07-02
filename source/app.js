@@ -1,3 +1,3 @@
-import { defineTag } from "./tools/builder.js";
+import { defineTag } from "./tools/utils.js";
 
-defineTag('test-element');
+defineTag('welcome');
