@@ -1,4 +1,4 @@
-export { defineTag };
+export { buildComponent };
 
 async function fetchFile(path) {
     try {
@@ -29,8 +29,8 @@ async function loadComponent(path) {
     }
 }
 
-async function defineTag(component) {
-    const content = await loadComponent(`./source/components/${component}.html`);
+async function buildComponent(name) {
+    const content = await loadComponent(`./source/components/${name}.html`);
     class CustomElement extends HTMLElement {
         constructor() {
             super();
@@ -43,5 +43,5 @@ async function defineTag(component) {
             }
         }
     }
-    customElements.define(`${component}-component`, CustomElement);
+    customElements.define(`${name}-component`, CustomElement);
 }

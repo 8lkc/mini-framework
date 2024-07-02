@@ -1,3 +1,3 @@
-import { defineTag } from "./tools/utils.js";
+import { buildComponent } from "./tools/utils.js";
 
-defineTag('welcome');
+buildComponent('welcome');
