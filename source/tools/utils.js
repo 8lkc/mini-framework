@@ -32,7 +32,7 @@ async function buildComponent(name) {
                 style.textContent = content.css;
                 this.shadowRoot.appendChild(style);
             }
-    
+
             // Directly include JavaScript logic in this method
             let counter = 0;
             const btn = this.shadowRoot.getElementById('checker');
