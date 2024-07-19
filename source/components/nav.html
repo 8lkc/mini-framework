@@ -1,8 +1,17 @@
 <script>
+    let counter = 0;
+    const btn = document.getElementById('checker');
+    btn.addEventListener('click', () => {
+        counter++;
+    });
 </script>
 
 <template>
+    <button id="checker">Click => 0</button>
 </template>
 
 <style>
+    button {
+        padding: 1rem 2rem;
+    }
 </style>
