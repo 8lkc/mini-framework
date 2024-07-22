@@ -1,3 +1,3 @@
-import { buildComponent } from "./tools/utils.js";
+// import { buildComponent } from "./tools/utils.js";
 
-buildComponent('nav');
+// buildComponent('nav');
