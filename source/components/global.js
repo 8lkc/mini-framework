@@ -4,11 +4,11 @@ export default class Component {
         this.shadowRoot = shadowRoot;
         this.model = model;
 
-        this.eventHandler();
         this.updateTemplate();
+        this.eventsHandler();
     }
 
-    eventHandler() {
+    eventsHandler() {
         this.shadowRoot.querySelectorAll('[custom-event]').forEach((element) => {
             Array.from(element.attributes).forEach((attribute) => {
                 if (attribute.name.startsWith("@")) {
