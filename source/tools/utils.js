@@ -16,7 +16,7 @@ async function loadComponent(path) {
 }
 
 export async function buildComponent(name) {
-    const content = await loadComponent(`./source/components/${name}/${name}.html`);
+    const content = await loadComponent(`../../source/components/${name}/${name}.html`);
     class CustomElement extends HTMLElement {
         constructor() {
             super(); this.attachShadow({ mode: 'open' });
@@ -26,7 +26,7 @@ export async function buildComponent(name) {
             if (content.css) {
                 const style = document.createElement('style'); style.textContent = content.css; this.shadowRoot.appendChild(style);
             }
-            const module = await import(`./source/components/${name}/${name}.js`);
+            const module = await import(`../../source/components/${name}/${name}.js`);
             const componentClass = module.default; this.componentInstance = new componentClass(name, this.shadowRoot);
         }
     }
