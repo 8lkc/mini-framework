@@ -1,9 +1,11 @@
 export default class Component {
-    constructor(name, shadowRoot) {
+    constructor(name, shadowRoot, model) {
         this.name = name;
         this.shadowRoot = shadowRoot;
+        this.model = model;
 
         this.eventHandler();
+        this.updateTemplate();
     }
 
     eventHandler() {
@@ -18,6 +20,13 @@ export default class Component {
                     element.addEventListener(event, (event) => this[handler](event));
                 }
             });
+        });
+    }
+
+    updateTemplate() {
+        this.shadowRoot.querySelectorAll("[data-bind]").forEach((element) => {
+            const prop = element.getAttribute("data-bind");
+            element.textContent = this.model[prop];
         });
     }
 }
