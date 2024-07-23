@@ -26,7 +26,7 @@ export async function buildComponent(name) {
             if (content.css) {
                 const style = document.createElement('style'); style.textContent = content.css; this.shadowRoot.appendChild(style);
             }
-            const module = await import(`../../source/components/${name}/${name}.js`);
+            const module = await import(`../components/${name}/${name}.js`);
             const componentClass = module.default; this.componentInstance = new componentClass(name, this.shadowRoot);
         }
     }
