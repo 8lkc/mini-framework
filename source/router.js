@@ -25,7 +25,8 @@ export default class Router {
         const url = `/${urlSegments.join('/')}`;
         history.pushState({}, '', url);
 
-        const routerOutElement = document.querySelector('[data-router]');
+        const routerOutElement = document.querySelector('[router-outlet]');
         routerOutElement.innerHTML = matchedRoute.template;
     }
+
 }

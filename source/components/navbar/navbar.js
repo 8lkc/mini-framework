@@ -4,14 +4,11 @@ export default class NavbarComponent extends Component {
     constructor(name, shadowRoot) {
         super(name, shadowRoot);
 
-        // this.increase();
+        this.counter = 0;
     }
 
-    // increase() {
-    //     let counter = 0;
-    //     const button = this.shadowRoot.querySelector("#counter")
-    //     button.addEventListener('click', () => {
-    //         button.textContent = `Click => ${counter++}`;
-    //     });
-    // }
+    increase() {
+        const button = this.shadowRoot.querySelector("#checker")
+        button.textContent = `Click => ${this.counter++}`;
+    }
 }
