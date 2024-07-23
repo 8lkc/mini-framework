@@ -9,10 +9,8 @@ export default class Component {
     }
 
     eventHandler() {
-        const events = this.shadowRoot.querySelectorAll('[custom-event]');
-        events.forEach((element) => {
-            const attributes = Array.from(element.attributes);
-            attributes.forEach((attr) => {
+        this.shadowRoot.querySelectorAll('[custom-event]').forEach((element) => {
+            Array.from(element.attributes).forEach((attr) => {
                 if (attr.name.startsWith("@")) {
                     const eventHandler = attr.value.split("=");
                     const event = attr.name.trim().substring(1);
