@@ -28,5 +28,4 @@ export default class Router {
         const routerOutElement = document.querySelector('[router-outlet]');
         routerOutElement.innerHTML = matchedRoute.template;
     }
-
 }
