@@ -3,7 +3,6 @@ export default class Component {
         this.name = name;
         this.shadowRoot = shadowRoot;
         this.model = model;
-
         this.updateTemplate();
         this.eventsHandler();
     }
@@ -12,9 +11,9 @@ export default class Component {
         this.shadowRoot.querySelectorAll('[custom-event]').forEach((element) => {
             Array.from(element.attributes).forEach((attribute) => {
                 if (attribute.name.startsWith("@")) {
-                    const eventHandler = attribute.value.split("=");
+                    const eventParts = attribute.value.split("=");
                     const event = attribute.name.trim().substring(1);
-                    const handler = eventHandler[0].trim();
+                    const handler = eventParts[0].trim();
                     element.addEventListener(event, (event) => this[handler](event));
                 }
             });
@@ -23,8 +22,7 @@ export default class Component {
 
     updateTemplate() {
         this.shadowRoot.querySelectorAll("[data-bind]").forEach((element) => {
-            const prop = element.getAttribute("data-bind");
-            element.textContent = this.model[prop];
+            const property = element.getAttribute("data-bind"); element.textContent = this.model[property];
         });
     }
 }
