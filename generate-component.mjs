@@ -11,7 +11,7 @@ function createComponent(name) {
         },
         {
             name: `${name}.js`,
-            content: /*js*/`import Component from "../global.js"\n\nexport default class NavbarComponent extends Component {\n\tconstructor(name, shadowRoot, model) {\n\t\tconst model = {};\n\t\tsuper(name, shadowRoot, model);\n\t}\n}\n`,
+            content: /*js*/`import Component from "../global.js"\n\nexport default class NavbarComponent extends Component {\n\tconstructor(name, shadowRoot) {\n\t\tsuper(name, shadowRoot);\n\t}\n}\n`,
         },
     ];
     if (!fs.existsSync(dirPath)) {fs.mkdirSync(dirPath, { recursive: true });}

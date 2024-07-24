@@ -1,8 +1,8 @@
 export default class Component {
-    constructor(name, shadowRoot, model) {
+    constructor(name, shadowRoot) {
         this.name = name;
         this.shadowRoot = shadowRoot;
-        this.model = model;
+        this.model = {};
         this.updateTemplate();
         this.eventsHandler();
     }
