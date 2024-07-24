@@ -5,5 +5,4 @@ buildComponent('navbar');
 
 const routes = [
 ];
-
 const router = new Router(routes);
