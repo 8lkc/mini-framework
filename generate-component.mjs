@@ -7,7 +7,7 @@ function createComponent(name) {
     const files = [
         {
             name: `${name}.html`,
-            content: /*html*/`<template>\n\t<h1>${name} works !</h1>\n</template>\n\n<style>\n\t/* padding: 1rem 2rem; */\n</style>\n`,
+            content: /*html*/`<template>\n\t<h1>${name} works !</h1>\n</template>\n\n<style>\n\t/* CSS style: here; */\n</style>\n`,
         },
         {
             name: `${name}.js`,
