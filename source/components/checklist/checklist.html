@@ -11,23 +11,20 @@
 
 <style>
 	div {
-		--background: #ffffff;
-		--text: #414856;
-		--check: #4F29F0;
-		--disabled: #C3C8DE;
-		--width: 100px;
-		--height: 140px;
-		--border-radius: 10px;
-		background: var(--background);
-		width: var(--width);
-		height: var(--height);
-		border-radius: var(--border-radius);
+		background: #ffffff;
+		width: fit-content;
+		max-width: 90vw;
+		height: fit-content;
+		max-height: 61vh;
+		border: 1px solid #b2b7c0;
+		border-radius: 10px;
 		position: relative;
 		box-shadow: 0 10px 30px rgba(#414856, 0.05);
-		padding: 30px 45px;
+		padding: 25px 55px 25px 45px;
 		display: grid;
 		grid-template-columns: 30px auto;
 		align-items: center;
+		overflow: scroll;
 	}
 	input[type="checkbox"] {
 		-webkit-appearance: none;
@@ -40,7 +37,7 @@
 		border: 0;
 		margin: 0 15px 0 0;
 		cursor: pointer;
-		background: var(--background);
+		background: #ffffff;
 		display: grid;
 		align-items: center;
 	}
@@ -49,7 +46,7 @@
 		position: absolute;
 		height: 2px;
 		top: auto;
-		background: var(--check);
+		background: #4F29F0;
 		border-radius: 2px;
 	}
 	input[type="checkbox"]::after {
@@ -69,18 +66,19 @@
         animation: check-01 .4s ease forwards;
 	}
 	input[type="checkbox"]:checked + label {
-        color: var(--disabled);
+        color: #C3C8DE;
         animation: move .3s ease .1s forwards;
 	}
 	input[type="checkbox"]:checked + label::after {
 		animation: firework .5s ease forwards .1s;
 	}
 	input[type="checkbox"]:checked + label::before {
-		background: var(--disabled);
+		background: #C3C8DE;
 		animation: slice .4s ease forwards;
 	}
 	label {
-		color: var(--text);
+		margin-block: 0.45rem;
+		color: #414856;
 		position: relative;
 		cursor: pointer;
 		display: grid;
@@ -103,7 +101,7 @@
 		height: 2px;
 		width: 8px;
 		left: -27px;
-		background: var(--check);
+		background: #4F29F0;
 		border-radius: 2px;
 		transition: background .3s ease;
 	}
