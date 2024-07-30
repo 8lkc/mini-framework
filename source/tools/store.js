@@ -1,4 +1,4 @@
-export default class Store {
-    constructor() {
-    }
-}
+export const tasks = {
+    size: 0,
+    elements: []
+};
