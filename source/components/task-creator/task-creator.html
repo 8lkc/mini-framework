@@ -1,0 +1,42 @@
+<template>
+	<div>
+		<div id="menu-toggle" @click="addTask" custom-event>
+			<span class="fa fa-plus"></span>
+		</div>
+	</div>
+</template>
+
+<style>
+	div {
+		position: fixed;
+		bottom: 1em;
+		right: 1em;
+	}
+
+	#menu-toggle {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background-color: #1ef064;
+		box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.2);
+		position: absolute;
+		z-index: 5;
+		bottom: 0;
+		right: 0;
+		display: table;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	#menu-toggle .fa {
+		color: #fff;
+		font-size: 2em;
+		display: table-cell;
+		vertical-align: middle;
+		transition: 0.4s;
+	}
+
+	#menu-toggle.open .fa {
+		transform: rotate(135deg);
+	}
+</style>
