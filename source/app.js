@@ -1,7 +1,7 @@
 import Router from "./router.js";
 import { buildComponent } from "./tools/utils.js";
 
-buildComponent('navbar');
+buildComponent('filter-bar');
 buildComponent('header');
 buildComponent('checklist');
 buildComponent('task-creator')

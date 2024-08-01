@@ -8,8 +8,8 @@ export default class NavbarComponent extends Component {
 	}
 
 	renderTasks() {
-		if(tasks.size > 0) {
-			tasks.elements.forEach(task => {
+		if(tasks.length > 0) {
+			tasks.forEach(task => {
 				const taskElement = document.createElement('input'); taskElement.type = 'checkbox'; taskElement.id = taskElement.value = task.id;
 				const taskLabel = document.createElement('label'); taskLabel.setAttribute('for', task.id); taskLabel.textContent = task.label;
 				this.shadowRoot.getElementById('list').append(taskElement, taskLabel);
