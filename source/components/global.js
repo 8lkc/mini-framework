@@ -2,7 +2,7 @@ export default class Component {
     constructor(name, shadowRoot) {
         this.name = name;
         this.shadowRoot = shadowRoot;
-        this.model = {};
+        this.storage = {};
         this.updateTemplate();
         this.eventsHandler();
     }
@@ -21,8 +21,27 @@ export default class Component {
     }
 
     updateTemplate() {
-        this.shadowRoot.querySelectorAll("[data-bind]").forEach((element) => {
-            const property = element.getAttribute("data-bind"); element.textContent = this.model[property];
-        });
+        const checklist = this.shadowRoot.getElementById('checklist');
+        if(checklist) {
+            console.log('Ok!');
+            console.log(checklist);
+            const tasks = JSON.parse(localStorage.getItem('tasks'));
+            console.log(tasks);
+            let counter = Number(checklist.getAttribute('counter'));
+            console.log(counter);
+            if(tasks.length > counter) {
+                while(counter < tasks.length) {
+                    const taskElement = document.createElement('input'); taskElement.type = 'checkbox'; taskElement.id = taskElement.value = tasks[counter].id;
+                    const taskLabel = document.createElement('label'); taskLabel.setAttribute('for', tasks[counter].id); taskLabel.textContent = tasks[counter].label;
+                    checklist.append(taskElement, taskLabel);
+                    counter++;
+                }
+                checklist.getAttribute('counter');
+            }
+        } else {
+            this.shadowRoot.querySelectorAll("[data-bind]").forEach((element) => {
+                const property = element.getAttribute("data-bind"); element.textContent = this.model[property];
+            });
+        }
     }
 }

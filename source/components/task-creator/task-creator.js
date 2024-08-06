@@ -1,7 +1,7 @@
 import { tasks } from "../../tools/store.js";
 import Component from "../global.js"
 
-export default class NavbarComponent extends Component {
+export default class TaskCreatorComponent extends Component {
 	constructor(name, shadowRoot) {
 		super(name, shadowRoot);
 	}
