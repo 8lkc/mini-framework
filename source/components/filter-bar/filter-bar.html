@@ -1,0 +1,81 @@
+<template>
+    <nav>
+        <input class="menu_input" name="menu" type="radio" id="btn2" checked>
+        <label class="menu_label" for="btn2">
+            <i class="fa fa-tasks" @click="anchor" destination="" custom-event></i>
+            <div class="menu_text">tasks</div>
+        </label>
+        <input class="menu_input" name="menu" type="radio" id="btn3">
+        <label class="menu_label" for="btn3">
+            <i class="fa fa-paperclip" @click="anchor" destination="pending" custom-event></i>
+            <div class="menu_text">pending</div>
+        </label>
+        <input class="menu_input" name="menu" type="radio" id="btn4">
+        <label class="menu_label" for="btn4">
+            <i class="fa fa-check" @click="anchor" destination="completed" custom-event></i>
+            <div class="menu_text">completed</div>
+        </label>
+    </nav>
+</template>
+
+<style>
+    * {
+        color: #fff;
+    }
+    nav {
+        position: relative;
+        width: 15rem;
+        margin-bottom: 2.5rem;
+        padding: 0.27rem;
+        display: flex;
+        background: linear-gradient(135deg, #9a0dfe, #637dfb);
+        box-shadow: 0 2px 12px 0 rgba(91, 41, 191, 0.5);
+        border-radius: 0.25rem;
+    }
+    .fa {
+        font-size: 1.5rem;
+        position: relative;
+        top: 0.18rem;
+        opacity: 0.7;
+    }
+    .fa-cog {
+        position: relative;
+        left: 0.18rem;
+    }
+    .menu_input[type=radio] {
+        display: none;
+        }
+        .menu_input[type=radio]:checked + .menu_label {
+            background-color: rgba(255, 255, 255, 0.3);
+            width: 70%;
+            }
+            .menu_input[type=radio]:checked + .menu_label .fa {
+                opacity: 1;
+            }
+            .menu_input[type=radio]:checked + .menu_label .menu_text {
+                opacity: 1;
+    }
+    .menu_label {
+        position: relative;
+        cursor: pointer;
+        font-size: 1.25rem;
+        line-height: 1.8rem;
+        text-transform: uppercase;
+        width: 2.75rem;
+        overflow: hidden;
+        display: flex;
+        padding: 0 0.63rem;
+        border-radius: 0.25rem;
+        background-color: rgba(255, 255, 255, 0);
+        box-sizing: border-box;
+        transition: all 0.3s;
+        }
+        .menu_label:hover .fa {
+            opacity: 1;
+    }
+    .menu_text {
+        padding-left: 9%;
+        opacity: 0;
+        transition: all 0.3s;
+    }
+</style>
