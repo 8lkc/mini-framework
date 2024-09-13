@@ -1,4 +1,5 @@
 import { storage } from "../../tools/store.js";
+import { dispatchWindowSEvent } from "../../tools/utils.js";
 import Component from "../global.js"
 export default class TaskCreatorComponent extends Component {
 	constructor(name, shadowRoot) {super(name, shadowRoot)}
@@ -9,7 +10,7 @@ export default class TaskCreatorComponent extends Component {
 	getData = event => {
 		if (event.key === 'Enter' || event.keyCode === 13) {
 			const inputData = this.shadowRoot.getElementById('task-field'); storage.addTask(inputData.value); storage.broadcast();
-			const event = new CustomEvent('tasksUpdated', {}); window.dispatchEvent(event); inputData.value = '';
+			dispatchWindowSEvent('tasksUpdated'); inputData.value = '';
 		}
 	}
 }

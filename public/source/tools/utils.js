@@ -32,3 +32,4 @@ export async function buildComponent(name) {
     }
     customElements.define(`${name}-component`, CustomElement);
 }
+export const dispatchWindowSEvent = (keyWord, data) => {const event = new CustomEvent(keyWord, {detail: data}); window.dispatchEvent(event)}

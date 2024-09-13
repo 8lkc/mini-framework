@@ -1,0 +1,60 @@
+<template>
+	<div class="container">
+		<div class="timeline-box">
+			<div id="box-title"></div>
+			<div class="box-content">
+				<div class="box-item"><strong>Edit a task</strong>: Double-click on its label.</div>
+				<div class="box-item"><strong>Creator</strong>: A Dakar's 01Talent team.</div>
+			</div>
+			<div id="box-footer"></div>
+		</div>
+	</div>
+</template>
+
+<style>
+	#box-footer {
+		padding: 5px 15px;
+		border-top: 1px solid #17191B;
+		background-color: #444950;
+		text-align: right;
+		font-style: italic;
+		border-bottom-left-radius: 15px;
+	}
+	#box-footer span {cursor: pointer;}
+	#box-footer span:hover {text-decoration: underline;}
+	#box-title {
+		padding: 5px 15px;
+		border-bottom: 1px solid #17191B;
+	}
+	#box-title i {
+		margin-right:5px;
+		color: lawngreen;
+	}
+	.box-content {
+		padding: 5px 15px;
+		background-color: #17191B;
+		text-align: center;
+	}
+	.box-content strong {
+		color: #666;
+		font-style: italic;
+		margin-right: 5px;
+		text-transform: uppercase;
+	}
+	.box-item {
+		margin-bottom: 5px;
+	}
+	.container {
+		color: beige;
+		margin-top: 1.2rem;
+	}
+	.timeline-box {
+		position: relative;
+		background-color: #444950;
+		border-radius: 15px;
+		border-top-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border: 1px solid #17191B;
+		transition: all 0.3s ease;
+	}
+</style>

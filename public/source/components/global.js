@@ -1,4 +1,5 @@
-import App from "../tools/utils.js";
+import { router } from "../router.js";
+import App, { dispatchWindowSEvent } from "../tools/utils.js";
 export default class Component extends App {
     constructor(name, shadowRoot) {
         super(); this.name = name; this.shadowRoot = shadowRoot;
@@ -18,6 +19,6 @@ export default class Component extends App {
     }
     anchor = event => {
         const destination = event.target.getAttribute('destination');
-        const aEvent = new CustomEvent('anchor', {detail: destination}); window.dispatchEvent(aEvent);
+        dispatchWindowSEvent('anchor', destination); router.loadRoute(destination);
     }
 }

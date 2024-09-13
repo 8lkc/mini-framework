@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 function createComponent(name) {
-    const dirPath = path.join(process.cwd(), "source/components", name);
+    const dirPath = path.join(process.cwd(), "/public/source/components", name);
     const files = [
         {
             name: `${name}.html`,

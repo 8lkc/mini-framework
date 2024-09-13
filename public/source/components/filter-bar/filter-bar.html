@@ -1,17 +1,17 @@
 <template>
     <nav>
-        <input class="menu_input" name="menu" type="radio" id="btn2" checked>
-        <label class="menu_label" for="btn2">
+        <input class="menu_input" name="menu" type="radio" id="all" checked>
+        <label class="menu_label" for="all">
             <i class="fa fa-tasks" @click="anchor" destination="" custom-event></i>
             <div class="menu_text">tasks</div>
         </label>
-        <input class="menu_input" name="menu" type="radio" id="btn3">
-        <label class="menu_label" for="btn3">
+        <input class="menu_input" name="menu" type="radio" id="pending">
+        <label class="menu_label" for="pending">
             <i class="fa fa-paperclip" @click="anchor" destination="pending" custom-event></i>
             <div class="menu_text">pending</div>
         </label>
-        <input class="menu_input" name="menu" type="radio" id="btn4">
-        <label class="menu_label" for="btn4">
+        <input class="menu_input" name="menu" type="radio" id="completed">
+        <label class="menu_label" for="completed">
             <i class="fa fa-check" @click="anchor" destination="completed" custom-event></i>
             <div class="menu_text">completed</div>
         </label>
