@@ -26,6 +26,13 @@ export const storage = {
         this.tasks.splice(index, 1);
         if(this.taskCount === 0) this.availableId = 0; this.broadcast();
     },
+    toggleAll() {
+        if(this.taskCount > 0) {
+            if(this.filter('active').length === 0) this.tasks.forEach(task => task.completed = true);
+            else this.tasks.forEach(task => task.completed = false);
+            this.broadcast();
+        }
+    },
     toggleState(id) {const i = this.findTask(id); this.tasks[i].completed = !this.tasks[i].completed; this.broadcast()},
     update() {this.tasks = JSON.parse(localStorage.getItem('tasks')); this.availableId = localStorage.getItem('availableId')},
     updateTaskLabel(id, newLabel) {

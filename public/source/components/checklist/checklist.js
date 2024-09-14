@@ -12,6 +12,7 @@ export default class ChecklistComponent extends Component {
 		this.attachWindowSEvent('tasksCleaned', this.filterTasks);
 		this.attachWindowSEvent('tasksCleaned', this.updateView);
 		this.attachWindowSEvent('taskRemoved', this.updateView);
+		this.attachWindowSEvent('allTasksToggled', this.updateView);
 		this.updateView();
 	}
 	filterTasks = () => {this.shadowRoot.querySelectorAll('.todo-list')[0].innerHTML = ''; storage.tasks.forEach(task => this.renderTask(task))}

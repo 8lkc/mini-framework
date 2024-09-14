@@ -12,6 +12,7 @@ export default class TaskCreatorComponent extends Component {
 	}
 	toggleAll = () => {
 		this.shadowRoot.querySelectorAll('.toggle-all-container')[0].classList.toggle('open');
+		storage.toggleAll(); dispatchWindowSEvent('allTasksToggled');
 	}
 	getData = event => {
 		if (event.key === 'Enter' || event.keyCode === 13) {
