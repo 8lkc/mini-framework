@@ -13,6 +13,7 @@ export default class Footer extends Component {
 	}
 	cleanTasks = () => {storage.clearCompletedTasks(); dispatchWindowSEvent('tasksCleaned')}
 	updateView = () => {
+        storage.update();
 		const activeTasksWatcher = storage.taskCount === 0 ? '' : `Remaining task(s) : ${storage.remainingTasks}`;
 		this.shadowRoot.querySelectorAll('.todo-count')[0].innerHTML = /*HTML*/`<i class="fa fa-tasks" aria-hidden="true"></i> ${activeTasksWatcher}`;
 		const cleanerButton = storage.completedTasks === 0 ? `-` : /*HTML*/`- <span @click="cleanTasks" custom-event>Clear completed</span>`;

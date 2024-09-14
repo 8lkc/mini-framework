@@ -8,14 +8,18 @@ export default class ChecklistComponent extends Component {
 		this.attachWindowSEvent('tasksUpdated', this.updateView);
 		this.attachWindowSEvent('anchor', this.filterTasks);
 		this.attachWindowSEvent('taskClicked', this.filterTasks);
-		this.attachWindowSEvent('taskClicked', this.updateView);
 		this.attachWindowSEvent('tasksCleaned', this.filterTasks);
-		this.attachWindowSEvent('tasksCleaned', this.updateView);
-		this.attachWindowSEvent('taskRemoved', this.updateView);
-		this.attachWindowSEvent('allTasksToggled', this.updateView);
+		this.attachWindowSEvent('taskRemoved', this.filterTasks);
+		this.attachWindowSEvent('allTasksToggled', this.filterTasks);
 		this.updateView();
 	}
-	filterTasks = () => {this.shadowRoot.querySelectorAll('.todo-list')[0].innerHTML = ''; storage.tasks.forEach(task => this.renderTask(task))}
+	filterTasks = () => {
+		storage.update();
+		const todoList = this.shadowRoot.querySelectorAll('.todo-list')[0];
+		if(storage.taskCount === 0) {todoList.style.display = 'none'; return}
+		todoList.style.display = 'grid';
+		this.shadowRoot.querySelectorAll('.todo-list')[0].innerHTML = ''; storage.tasks.forEach(task => this.renderTask(task))
+	}
 	editTask = event => {
 		if (this.clickTimeout) clearTimeout(this.clickTimeout); // Cancel single click if double-click is detected
         const label = event.target; const taskId = Number(label.getAttribute('for'));
@@ -62,13 +66,10 @@ export default class ChecklistComponent extends Component {
 		}, 200);
 	}
 	updateView = (event) => {
-		const todoList = this.shadowRoot.querySelectorAll('.todo-list')[0];
-		if(storage.taskCount === 0) {todoList.style.display = 'none'; return}
-		todoList.style.display = 'grid';
-		if(!event) {storage.update(); storage.tasks.forEach(task => this.renderTask(task)); return}
+		if(!event) {this.filterTasks(); return}
 		switch(event.type) {
 			case 'tasksUpdated': this.renderTask(storage.getTaskAtPosition(storage.taskCount - 1)); break;
-			// default: console.error('UNKNOWN EVENT TYPE: ', event.type);
+			default: console.error('UNKNOWN EVENT TYPE: ', event.type);
 		}
 	}
 	disconnectedCallback = () => {

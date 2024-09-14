@@ -16,6 +16,7 @@ export default class FilterBarComponent extends Component {
         this.shadowRoot.getElementById(location).setAttribute('checked', '');
     }
     updateView = () => {
+        storage.update();
         const filterBar = this.shadowRoot.querySelectorAll('.filters')[0];
 		if(storage.taskCount === 0) {filterBar.style.display = 'none'; return}
 		filterBar.style.display = 'flex';

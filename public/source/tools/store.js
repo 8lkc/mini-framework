@@ -27,8 +27,8 @@ export const storage = {
         if(this.taskCount === 0) this.availableId = 0; this.broadcast();
     },
     toggleAll() {
-        if(this.taskCount > 0) {
-            if(this.filter('active').length === 0) this.tasks.forEach(task => task.completed = true);
+        this.update(); if(this.taskCount > 0) {
+            if(this.filter('active').length > 0) this.tasks.forEach(task => task.completed = true);
             else this.tasks.forEach(task => task.completed = false);
             this.broadcast();
         }

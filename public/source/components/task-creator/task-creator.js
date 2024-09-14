@@ -21,6 +21,7 @@ export default class TaskCreatorComponent extends Component {
 		}
 	}
 	updateView = () => {
+        storage.update();
 		const toggleAllButton = this.shadowRoot.querySelectorAll('.toggle-all-container')[0];
 		if(storage.taskCount === 0) toggleAllButton.style.display = 'none';
 		else toggleAllButton.style.display = 'table';
