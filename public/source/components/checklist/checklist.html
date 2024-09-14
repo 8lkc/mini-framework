@@ -1,9 +1,11 @@
 <template>
-	<div id="list"></div>
+	<main class="main">
+		<div class="todo-list"></div>
+	</main>
 </template>
 
 <style>
-	#list {
+	.todo-list {
 		background: #ffffff;
 		width: fit-content;
 		max-width: 90vw;
@@ -19,7 +21,7 @@
 		align-items: center;
 		overflow: scroll;
 	}
-	input[type="checkbox"] {
+	.toggle[type="checkbox"] {
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
@@ -34,7 +36,7 @@
 		display: grid;
 		align-items: center;
 	}
-	input[type="checkbox"]::after, input[type="checkbox"]::before {
+	.toggle[type="checkbox"]::after, input[type="checkbox"]::before {
 		content:"";
 		position: absolute;
 		height: 2px;
@@ -42,30 +44,30 @@
 		background: #4F29F0;
 		border-radius: 2px;
 	}
-	input[type="checkbox"]::after {
+	.toggle[type="checkbox"]::after {
 		width: 0px;
 		left: 40%;
 		transform-origin: left bottom;
 	}
-	input[type="checkbox"]::before {
+	.toggle[type="checkbox"]::before {
 		width: 0px;
 		right: 60%;
 		transform-origin: right bottom;
 	}
-	input[type="checkbox"]:checked::after {
+	.toggle[type="checkbox"]:checked::after {
         animation: check-02 .4s ease forwards;
 	}
-	input[type="checkbox"]:checked::before {
+	.toggle[type="checkbox"]:checked::before {
         animation: check-01 .4s ease forwards;
 	}
-	input[type="checkbox"]:checked + label {
+	.toggle[type="checkbox"]:checked + label {
         color: #C3C8DE;
         animation: move .3s ease .1s forwards;
 	}
-	input[type="checkbox"]:checked + label::after {
+	.toggle[type="checkbox"]:checked + label::after {
 		animation: firework .5s ease forwards .1s;
 	}
-	input[type="checkbox"]:checked + label::before {
+	.toggle[type="checkbox"]:checked + label::before {
 		background: #C3C8DE;
 		animation: slice .4s ease forwards;
 	}
@@ -99,11 +101,11 @@
 		border-radius: 2px;
 		transition: background .3s ease;
 	}
-	label + .outer {
+	label + .destroy {
 		opacity: 0;
 		transition: all 0.45s;
 	}
-	label:hover + .outer, label + .outer:hover {
+	label:hover + .destroy, label + .destroy:hover {
 		opacity: 1;
 		transition: all 0.45s;
 	}
@@ -137,7 +139,7 @@
 		bottom: 50%;
 		transform: rotate(-45deg);
 	}
-	.outer {
+	.destroy {
 		position: relative;
 		width: 1.8rem;
 		margin-left: 2.5rem;
@@ -145,19 +147,19 @@
 		opacity: 0;
 		transition: all 0.45s;
 	}
-	.outer:hover {
+	.destroy:hover {
 		width: 2.5rem;
 	}
-	.outer:hover span {
+	.destroy:hover span {
 		opacity: 1;
 	}
-	.outer:hover .inner:before, .outer:hover .inner:after {
+	.destroy:hover .inner:before, .destroy:hover .inner:after {
 		transform: rotate(0);
 	}
-	.outer:hover .inner:before {
+	.destroy:hover .inner:before {
 		top: 0;
 	}
-	.outer:hover .inner:after {
+	.destroy:hover .inner:after {
 		bottom: 0;
 	}
 	@keyframes move {

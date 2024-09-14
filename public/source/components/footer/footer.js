@@ -8,13 +8,14 @@ export default class Footer extends Component {
 		this.attachWindowSEvent('tasksUpdated', this.updateView);
 		this.attachWindowSEvent('taskClicked', this.updateView);
 		this.attachWindowSEvent('taskRemoved', this.updateView);
+		this.attachWindowSEvent('tasksCleaned', this.updateView);
 		this.updateView();
 	}
-	cleanTasks = () => {storage.clearCompletedTasks(); dispatchWindowSEvent('tasksCleaned'); this.shadowRoot.getElementById('box-footer').innerHTML = '-'}
+	cleanTasks = () => {storage.clearCompletedTasks(); dispatchWindowSEvent('tasksCleaned')}
 	updateView = () => {
-		const pendingTasksWatcher = storage.remainingTasks === 0 ? 'No task to do !' : `Remaining task(s) : ${storage.remainingTasks}`;
-		this.shadowRoot.getElementById('box-title').innerHTML = /*HTML*/`<i class="fa fa-tasks" aria-hidden="true"></i> ${pendingTasksWatcher}`;
+		const activeTasksWatcher = storage.taskCount === 0 ? '' : `Remaining task(s) : ${storage.remainingTasks}`;
+		this.shadowRoot.querySelectorAll('.todo-count')[0].innerHTML = /*HTML*/`<i class="fa fa-tasks" aria-hidden="true"></i> ${activeTasksWatcher}`;
 		const cleanerButton = storage.completedTasks === 0 ? `-` : /*HTML*/`- <span @click="cleanTasks" custom-event>Clear completed</span>`;
-		this.shadowRoot.getElementById('box-footer').innerHTML = cleanerButton; this.eventsHandler();
+		this.shadowRoot.querySelectorAll('.clear-completed')[0].innerHTML = cleanerButton; this.eventsHandler();
 	}
 }

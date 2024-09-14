@@ -1,29 +1,22 @@
 <template>
 	<div id="container">
-		<div id="menu-toggle" @click="addTask" custom-event>
-			<span class="fa fa-plus"></span>
-		</div>
 		<div id="task-bar">
 			<input id="task-field" type="text" placeholder="What needs to be done ?" @keydown="getData" custom-event>
+		</div>
+		<div id="menu-toggle" @click="addTask" custom-event>
+			<span class="fa fa-check"></span>
 		</div>
 	</div>
 </template>
 
 <style>
 	#container {
-		position: fixed;
-		bottom: 1em;
-		right: 1em;
 		display: flex;
-		flex-direction: column;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
 		height: 60px;
-		width: 3vw;
-		transition: 0.4s;
-	}
-	#container.expand {
 		width: 45vw;
+		margin-bottom: 1rem;
 	}
 	input {
 		border: none;
@@ -35,15 +28,11 @@
 		outline: none;
 	}
 	#menu-toggle {
-		width: 60px;
-		height: 60px;
+		width: 45px;
+		height: 45px;
+		margin-right: -3.6rem;
 		border-radius: 50%;
 		background-color: #1ef064;
-		box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.2);
-		position: absolute;
-		z-index: 5;
-		bottom: 0;
-		right: 0;
 		display: table;
 		text-align: center;
 		cursor: pointer;
@@ -56,7 +45,7 @@
 		transition: 0.4s;
 	}
 	#menu-toggle.open .fa {
-		transform: rotate(135deg);
+		transform: rotate(190deg);
 	}
 	#task-bar {
 		height: 45px;
@@ -65,7 +54,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 75%;
+		width: 100%;
 		padding-inline: 4.5%;
 		border-radius: 22.5px;
 	}

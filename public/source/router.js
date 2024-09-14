@@ -7,7 +7,7 @@ export const router = new class Router {
         this.routes = [
             { path: '/', component: 'checklist' },
             { path: '/completed', component: 'checklist' },
-            { path: '/pending', component: 'checklist' },
+            { path: '/active', component: 'checklist' },
         ];
         this._loadInitialRoute();
         window.onpopstate = () => this._loadRouteFromPath();

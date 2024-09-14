@@ -3,9 +3,9 @@ export const storage = {
     availableId: 0,
     addTask(label, status) {this.tasks.push({id: this.availableId++, label: label, completed: status === true ? status : false})},
     broadcast() {localStorage.setItem('tasks', JSON.stringify(this.tasks)); localStorage.setItem('availableId', this.availableId)},
-    clearCompletedTasks() {this.tasks = this.filter('pending'); this.broadcast()},
+    clearCompletedTasks() {this.tasks = this.filter('active'); this.broadcast()},
 	filter(targetStatus) {
-        if (targetStatus === 'pending') return this.tasks.filter(task => !task.completed);
+        if (targetStatus === 'active') return this.tasks.filter(task => !task.completed);
         if (targetStatus === 'completed') return this.tasks.filter(task => task.completed);
         return this.tasks; // All tasks
     },
@@ -17,7 +17,7 @@ export const storage = {
         return index;
     },
     get completedTasks() {return this.filter('completed').length},
-    get remainingTasks() {return this.filter('pending').length},
+    get remainingTasks() {return this.filter('active').length},
     get taskCount() {return this.tasks.length},
     getTaskAtPosition(index) {return this.tasks[index] || undefined},
     removeTask(id) {

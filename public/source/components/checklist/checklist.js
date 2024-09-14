@@ -11,7 +11,7 @@ export default class ChecklistComponent extends Component {
 		this.attachWindowSEvent('tasksCleaned', this.filterTasks);
 		this.updateView();
 	}
-	filterTasks = () => {this.shadowRoot.getElementById('list').innerHTML = ''; storage.tasks.forEach(task => this.renderTask(task))}
+	filterTasks = () => {this.shadowRoot.querySelectorAll('.todo-list')[0].innerHTML = ''; storage.tasks.forEach(task => this.renderTask(task))}
 	editTask = event => {
 		if (this.clickTimeout) clearTimeout(this.clickTimeout); // Cancel single click if double-click is detected
         const label = event.target; const taskId = Number(label.getAttribute('for'));
@@ -27,7 +27,7 @@ export default class ChecklistComponent extends Component {
 		input.addEventListener('keydown', (e) => {if (e.key === 'Enter') saveUpdatedTask();});
 	}
 	removeTask = event => {
-		const layout = this.shadowRoot.getElementById('list');
+		const layout = this.shadowRoot.querySelectorAll('.todo-list')[0];
 		const button = event.target.parentElement.parentElement;
 		const id = button.id.split(':')[1];
 		const input = this.shadowRoot.getElementById(id);
@@ -39,13 +39,13 @@ export default class ChecklistComponent extends Component {
 	}
 	renderTask = task => {
 		const pathname = window.location.pathname.split('/').slice(1)[0];
-		if(pathname === '' || pathname === 'pending' && !task.completed || pathname === 'completed' && task.completed) {
-			const checklist = this.shadowRoot.getElementById('list'); const temp = checklist.innerHTML;
-			checklist.innerHTML = /*HTML*/`${temp}<input type="checkbox" value="0" id="${task.id}"></input>
+		if(pathname === '' || pathname === 'active' && !task.completed || pathname === 'completed' && task.completed) {
+			const checklist = this.shadowRoot.querySelectorAll('.todo-list')[0]; const temp = checklist.innerHTML;
+			checklist.innerHTML = /*HTML*/`${temp}<input class="toggle" type="checkbox" value="0" id="${task.id}"></input>
 										   <label for="${task.id}" @click="toggleState" @dblclick="editTask" custom-event>${task.label}</label>`;
 			const taskElement = this.shadowRoot.getElementById(task.id);
 			if(task.completed) taskElement.setAttribute('checked', '');
-			const deleteButton = this.makeHTMLElement('div'); deleteButton.id = 'db:' +task.id; deleteButton.className = 'outer';
+			const deleteButton = this.makeHTMLElement('div'); deleteButton.id = 'db:' +task.id; deleteButton.className = 'destroy';
 			deleteButton.innerHTML = /*HTML*/`<div class="inner"><span @click="removeTask" custom-event>delete</span></div>`;
 			checklist.append(deleteButton); this.eventsHandler();
 		}
