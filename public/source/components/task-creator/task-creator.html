@@ -3,8 +3,9 @@
 		<div id="task-bar">
 			<input id="task-field" type="text" placeholder="What needs to be done ?" @keydown="getData" custom-event>
 		</div>
-		<div id="menu-toggle" @click="addTask" custom-event>
-			<span class="fa fa-check"></span>
+		<div class="toggle-all-container" @click="toggleAll" custom-event>
+			<span class="fa fa-check toggle-all"></span>
+			<label class="toggle-all-label" for="toggle-all">Mark all as complete</label>
 		</div>
 	</div>
 </template>
@@ -27,7 +28,7 @@
 	input:focus {
 		outline: none;
 	}
-	#menu-toggle {
+	.toggle-all-container {
 		width: 45px;
 		height: 45px;
 		margin-right: -3.6rem;
@@ -37,15 +38,24 @@
 		text-align: center;
 		cursor: pointer;
 	}
-	#menu-toggle .fa {
+	.toggle-all-container .fa {
 		color: #fff;
 		font-size: 2em;
 		display: table-cell;
 		vertical-align: middle;
 		transition: 0.4s;
 	}
-	#menu-toggle.open .fa {
+	.toggle-all-container.open .fa {
 		transform: rotate(190deg);
+	}
+	.toggle-all:hover + .toggle-all-label {
+		display: block;
+	}
+	.toggle-all-label {
+		position: absolute;
+		margin-top: -1.8rem;
+		margin-left: -6.3rem;
+		display: none;
 	}
 	#task-bar {
 		height: 45px;

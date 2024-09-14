@@ -60,18 +60,18 @@
 	.toggle[type="checkbox"]:checked::before {
         animation: check-01 .4s ease forwards;
 	}
-	.toggle[type="checkbox"]:checked + label {
+	.toggle[type="checkbox"]:checked + .view {
         color: #C3C8DE;
         animation: move .3s ease .1s forwards;
 	}
-	.toggle[type="checkbox"]:checked + label::after {
+	.toggle[type="checkbox"]:checked + .view::after {
 		animation: firework .5s ease forwards .1s;
 	}
-	.toggle[type="checkbox"]:checked + label::before {
+	.toggle[type="checkbox"]:checked + .view::before {
 		background: #C3C8DE;
 		animation: slice .4s ease forwards;
 	}
-	label {
+	.view {
 		margin-block: 0.45rem;
 		font-size: 1.2rem;
 		color: #414856;
@@ -82,18 +82,18 @@
 		width: fit-content;
 		transition: color .3s ease;
 	}
-	label::after, div label::before {
+	.view::after, div .view::before {
 		content:"";
 		position: absolute;
 	}
-	label::after {
+	.view::after {
 		height: 4px;
 		width: 4px;
 		top: 8px;
 		left: -25px;
 		border-radius: 50%;
 	}
-	label::before {
+	.view::before {
 		height: 2px;
 		width: 8px;
 		left: -27px;
@@ -101,11 +101,11 @@
 		border-radius: 2px;
 		transition: background .3s ease;
 	}
-	label + .destroy {
+	.view + .destroy {
 		opacity: 0;
 		transition: all 0.45s;
 	}
-	label:hover + .destroy, label + .destroy:hover {
+	.view:hover + .destroy, .view + .destroy:hover {
 		opacity: 1;
 		transition: all 0.45s;
 	}

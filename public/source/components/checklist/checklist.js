@@ -8,7 +8,10 @@ export default class ChecklistComponent extends Component {
 		this.attachWindowSEvent('tasksUpdated', this.updateView);
 		this.attachWindowSEvent('anchor', this.filterTasks);
 		this.attachWindowSEvent('taskClicked', this.filterTasks);
+		this.attachWindowSEvent('taskClicked', this.updateView);
 		this.attachWindowSEvent('tasksCleaned', this.filterTasks);
+		this.attachWindowSEvent('tasksCleaned', this.updateView);
+		this.attachWindowSEvent('taskRemoved', this.updateView);
 		this.updateView();
 	}
 	filterTasks = () => {this.shadowRoot.querySelectorAll('.todo-list')[0].innerHTML = ''; storage.tasks.forEach(task => this.renderTask(task))}
@@ -42,7 +45,7 @@ export default class ChecklistComponent extends Component {
 		if(pathname === '' || pathname === 'active' && !task.completed || pathname === 'completed' && task.completed) {
 			const checklist = this.shadowRoot.querySelectorAll('.todo-list')[0]; const temp = checklist.innerHTML;
 			checklist.innerHTML = /*HTML*/`${temp}<input class="toggle" type="checkbox" value="0" id="${task.id}"></input>
-										   <label for="${task.id}" @click="toggleState" @dblclick="editTask" custom-event>${task.label}</label>`;
+										   <label class="view" for="${task.id}" @click="toggleState" @dblclick="editTask" custom-event>${task.label}</label>`;
 			const taskElement = this.shadowRoot.getElementById(task.id);
 			if(task.completed) taskElement.setAttribute('checked', '');
 			const deleteButton = this.makeHTMLElement('div'); deleteButton.id = 'db:' +task.id; deleteButton.className = 'destroy';
@@ -58,10 +61,13 @@ export default class ChecklistComponent extends Component {
 		}, 200);
 	}
 	updateView = (event) => {
+		const todoList = this.shadowRoot.querySelectorAll('.todo-list')[0];
+		if(storage.taskCount === 0) {todoList.style.display = 'none'; return}
+		todoList.style.display = 'grid';
 		if(!event) {storage.update(); storage.tasks.forEach(task => this.renderTask(task)); return}
 		switch(event.type) {
 			case 'tasksUpdated': this.renderTask(storage.getTaskAtPosition(storage.taskCount - 1)); break;
-			default: console.error('UNKNOWN EVENT TYPE: ', event.type);
+			// default: console.error('UNKNOWN EVENT TYPE: ', event.type);
 		}
 	}
 	disconnectedCallback = () => {

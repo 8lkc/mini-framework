@@ -1,18 +1,17 @@
 <template>
-	<h1 data-text="TodoMVC"></h1>
+	<header class="header">
+		<h1 data-text="TodoMVC"></h1>
+	</header>
 </template>
 
 <style>
 	h1 {
-		position: relative;
 		font-size: 7rem;
 		font-weight: 900;
 		letter-spacing: 0.5rem;
 		display: table;
 		cursor: pointer;
 		transition: 0.45s;
-		margin-top: 4.5rem;
-		margin-bottom: 1.2rem;
 	}
 	h1:before, h1:after {
 		content: attr(data-text);
@@ -52,5 +51,10 @@
 			8px 8px,
 			9px 9px,
 			10px 10px;
+	}
+	.header {
+		position: relative;
+		margin-top: 4.5rem;
+		margin-bottom: 1.2rem;
 	}
 </style>
