@@ -1,24 +1,19 @@
 #!/usr/bin/env node
 import fs from "fs";
 import path from "path";
-
 function createComponent(name) {
     const dirPath = path.join(process.cwd(), "/public/source/components", name);
-    const files = [
-        {
+    const files = [{
             name: `${name}.html`,
             content: /*html*/`<template>\n\t<h1>${name} works !</h1>\n</template>\n\n<style>\n\t/* CSS style: here; */\n</style>\n`,
-        },
-        {
+        }, {
             name: `${name}.js`,
-            content: /*js*/`import Component from "../global.js"\n\nexport default class <ComponentSClassName> extends Component {\n\tconstructor(name, shadowRoot) {\n\t\tsuper(name, shadowRoot);\n\t}\n}\n`,
+            content: /*js*/`import Component from "../global.js"\nexport default class <ComponentSClassName> extends Component {\n\tconstructor(name, shadowRoot) {super(name, shadowRoot);}\n}\n`,
         },
     ];
     if (!fs.existsSync(dirPath)) {fs.mkdirSync(dirPath, { recursive: true });}
     files.forEach((file) => {fs.writeFileSync(path.join(dirPath, file.name), file.content);});
     console.log(`Component ${name} has been created.`);
 }
-
-const name = process.argv[2];
-if (!name) {console.error("Please specify the component name"); process.exit(1);}
+const name = process.argv[2]; if (!name) {console.error("Please specify the component name"); process.exit(1);}
 createComponent(name);

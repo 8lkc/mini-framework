@@ -1,13 +1,13 @@
 import { buildComponent } from "./tools/utils.js";
 if(!localStorage.getItem('availableId')) localStorage.setItem('availableId', 0);
 if(!localStorage.getItem('tasks')) localStorage.setItem('tasks', JSON.stringify([]));
-buildComponent('filter-bar'); buildComponent('header'); buildComponent('checklist'); buildComponent('task-creator'); buildComponent('footer');
+buildComponent('checklist'); buildComponent('footer'); buildComponent('header'); buildComponent('info');
 export const router = new class Router {
     constructor() {
         this.routes = [
-            { path: '/', component: 'checklist' },
-            { path: '/completed', component: 'checklist' },
-            { path: '/active', component: 'checklist' },
+            {path: '/', component: 'checklist'},
+            {path: '/active', component: 'checklist'},
+            {path: '/completed', component: 'checklist'},
         ];
         this._loadInitialRoute();
         window.onpopstate = () => this._loadRouteFromPath();

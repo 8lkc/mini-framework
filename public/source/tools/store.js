@@ -26,10 +26,10 @@ export const storage = {
         this.tasks.splice(index, 1);
         if(this.taskCount === 0) this.availableId = 0; this.broadcast();
     },
-    toggleAll() {
-        this.update(); if(this.taskCount > 0) {
-            if(this.filter('active').length > 0) this.tasks.forEach(task => task.completed = true);
-            else this.tasks.forEach(task => task.completed = false);
+    toggleAll(keyword) {
+        if(this.taskCount > 0) {
+            if(keyword === 'undo') this.tasks.forEach(task => task.completed = false);
+            else this.tasks.forEach(task => task.completed = true);
             this.broadcast();
         }
     },

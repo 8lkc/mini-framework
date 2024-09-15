@@ -1,242 +1,62 @@
 <template>
-	<main class="main">
-		<div class="todo-list"></div>
+	<main class="main hidden">
+		<div class="toggle-all-container" @click="toggleAll" custom-event>
+			<input class="toggle-all" type="checkbox">
+			<label class="toggle-all-label" for="toggle-all">Mark all as complete</label>
+		</div>
+		<ul class="todo-list"></ul>
 	</main>
 </template>
 
 <style>
-	.todo-list {
-		background: #ffffff;
-		width: fit-content;
-		max-width: 90vw;
-		height: fit-content;
-		max-height: 61vh;
-		border: 1px solid #b2b7c0;
-		border-radius: 10px;
-		position: relative;
-		box-shadow: 0 10px 30px rgba(#414856, 0.05);
-		padding: 25px 25px 25px 45px;
-		display: grid;
-		grid-template-columns: 30px auto auto;
-		align-items: center;
-		overflow: scroll;
+	.main {position: relative; z-index: 2; border-top: 1px solid #e6e6e6;}
+	.toggle-all {
+		width: 1px; height: 1px; border: none; /* Mobile Safari */
+		opacity: 0; position: absolute; right: 100%; bottom: 100%;
 	}
-	.toggle[type="checkbox"] {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		appearance: none;
-		position: relative;
-		height: 15px;
-		width: 15px;
-		outline: none;
-		border: 0;
-		margin: 0 15px 0 0;
-		cursor: pointer;
-		background: #ffffff;
-		display: grid;
-		align-items: center;
+	.toggle-all + label {
+		display: flex; align-items: center; justify-content: center; width: 45px; height: 65px; font-size: 0;
+		position: absolute; top: -65px; left: -0;
 	}
-	.toggle[type="checkbox"]::after, input[type="checkbox"]::before {
-		content:"";
-		position: absolute;
-		height: 2px;
-		top: auto;
-		background: #4F29F0;
-		border-radius: 2px;
+	.toggle-all + label:before {
+		content: '❯'; display: inline-block; font-size: 22px; color: #949494; cursor: pointer;
+		padding: 10px 27px 10px 27px; -webkit-transform: rotate(90deg); transform: rotate(90deg);
 	}
-	.toggle[type="checkbox"]::after {
-		width: 0px;
-		left: 40%;
-		transform-origin: left bottom;
+	.toggle-all:checked + label:before {color: #484848;}
+	.todo-list {margin: 0; padding: 0; list-style: none;}
+	.todo-list li {position: relative; font-size: 24px;border-bottom: 1px solid #ededed;}
+	.todo-list li:last-child {border-bottom: none;}
+	.todo-list li.editing {border-bottom: none; padding: 0;}
+	.todo-list li.editing .edit {display: block; width: calc(100% - 43px); padding: 12px 16px; margin: 0 0 0 43px;}
+	.todo-list li.editing .view {display: none;}
+	.todo-list li .toggle {
+		text-align: center; width: 40px; /* auto, since non-WebKit browsers doesn't support input styling */
+		height: auto; position: absolute; top: 0; bottom: 0; margin: auto 0; border: none; /* Mobile Safari */
+		-webkit-appearance: none; appearance: none;
 	}
-	.toggle[type="checkbox"]::before {
-		width: 0px;
-		right: 60%;
-		transform-origin: right bottom;
+	.todo-list li .toggle {opacity: 0; cursor: pointer;}
+	.todo-list li .toggle + label {
+		/*
+			Firefox requires `#` to be escaped - https://bugzilla.mozilla.org/show_bug.cgi?id=922433
+			IE and Edge requires *everything* to be escaped to render, so we do that instead of just the `#` - https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7157459/
+		*/
+		background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23949494%22%20stroke-width%3D%223%22/%3E%3C/svg%3E');
+		background-repeat: no-repeat; background-position: center left;
 	}
-	.toggle[type="checkbox"]:checked::after {
-        animation: check-02 .4s ease forwards;
+	.todo-list li .toggle:checked + label {
+		background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%2359A193%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20fill%3D%22%233EA390%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22%2F%3E%3C%2Fsvg%3E');
 	}
-	.toggle[type="checkbox"]:checked::before {
-        animation: check-01 .4s ease forwards;
+	.todo-list li label {
+		word-break: break-all; padding: 15px 15px 15px 60px; display: block; line-height: 1.2; transition: color 0.4s; font-weight: 400; color: #484848;
 	}
-	.toggle[type="checkbox"]:checked + .view {
-        color: #C3C8DE;
-        animation: move .3s ease .1s forwards;
+	.todo-list li.completed label {color: #949494; text-decoration: line-through;}
+	.todo-list li .destroy {
+		display: none; position: absolute; top: 0; right: 10px; bottom: 0; width: 40px; height: 40px; margin: auto 0;
+		font-size: 30px; color: #949494; transition: color 0.2s ease-out; cursor: pointer;
 	}
-	.toggle[type="checkbox"]:checked + .view::after {
-		animation: firework .5s ease forwards .1s;
-	}
-	.toggle[type="checkbox"]:checked + .view::before {
-		background: #C3C8DE;
-		animation: slice .4s ease forwards;
-	}
-	.view {
-		margin-block: 0.45rem;
-		font-size: 1.2rem;
-		color: #414856;
-		position: relative;
-		cursor: pointer;
-		display: grid;
-		align-items: center;
-		width: fit-content;
-		transition: color .3s ease;
-	}
-	.view::after, div .view::before {
-		content:"";
-		position: absolute;
-	}
-	.view::after {
-		height: 4px;
-		width: 4px;
-		top: 8px;
-		left: -25px;
-		border-radius: 50%;
-	}
-	.view::before {
-		height: 2px;
-		width: 8px;
-		left: -27px;
-		background: #4F29F0;
-		border-radius: 2px;
-		transition: background .3s ease;
-	}
-	.view + .destroy {
-		opacity: 0;
-		transition: all 0.45s;
-	}
-	.view:hover + .destroy, .view + .destroy:hover {
-		opacity: 1;
-		transition: all 0.45s;
-	}
-	span {
-		font-size: 0.79rem;
-		color: #414856;
-		line-height: 1.8rem;
-		text-transform: uppercase;
-		transition: all .3s ease-in;
-		opacity: 0;
-		cursor: pointer;
-	}
-	.inner {
-		width: inherit;
-		text-align: center;
-	}
-	.inner:before, .inner:after {
-		position: absolute;
-		content: '';
-		height: 1px;
-		width: inherit;
-		background: linear-gradient(135deg, #9a0dfe, #637dfb);
-		left: 0;
-		transition: all .3s ease-in;
-	}
-	.inner:before {
-		top: 50%;
-		transform: rotate(45deg);
-	}
-	.inner:after {  
-		bottom: 50%;
-		transform: rotate(-45deg);
-	}
-	.destroy {
-		position: relative;
-		width: 1.8rem;
-		margin-left: 2.5rem;
-		cursor: pointer;
-		opacity: 0;
-		transition: all 0.45s;
-	}
-	.destroy:hover {
-		width: 2.5rem;
-	}
-	.destroy:hover span {
-		opacity: 1;
-	}
-	.destroy:hover .inner:before, .destroy:hover .inner:after {
-		transform: rotate(0);
-	}
-	.destroy:hover .inner:before {
-		top: 0;
-	}
-	.destroy:hover .inner:after {
-		bottom: 0;
-	}
-	@keyframes move {
-		50% {
-			padding-left: 8px;
-			padding-right: 0px;
-		}
-		100% {
-			padding-right: 4px;
-		}
-	}
-	@keyframes slice {
-		60% {
-			width: 100%;
-			left: 4px;
-		}
-		100% {
-			width: 100%;
-			left: -2px;
-			padding-left: 0;
-		}
-	}
-	@keyframes check-01 {
-		0% {
-			width: 4px;
-			top: auto;
-			transform: rotate(0);
-		}
-		50% {
-			width: 0px;
-			top: auto;
-			transform: rotate(0);
-		}
-		51% {
-			width: 0px;
-			top: 8px;
-			transform: rotate(45deg);
-		}
-		100% {
-			width: 5px;
-			top: 8px;
-			transform: rotate(45deg);
-		}
-	}
-	@keyframes check-02 {
-		0% {
-			width: 4px;
-			top: auto;
-			transform: rotate(0);
-		}
-		50% {
-			width: 0px;
-			top: auto;
-			transform: rotate(0);
-		}
-		51% {
-			width: 0px;
-			top: 8px;
-			transform: rotate(-45deg);
-		}
-		100% {
-			width: 10px;
-			top: 8px;
-			transform: rotate(-45deg);
-		}
-	}
-	@keyframes firework {
-		0% {
-			opacity: 1;
-			box-shadow: 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0;
-		}
-		30% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-			box-shadow: 0 -15px 0 0px #4F29F0, 14px -8px 0 0px #4F29F0, 14px 8px 0 0px #4F29F0, 0 15px 0 0px #4F29F0, -14px 8px 0 0px #4F29F0, -14px -8px 0 0px #4F29F0;
-		}
-	}
+	.todo-list li .destroy:hover, .todo-list li .destroy:focus {color: #C18585;}
+	.todo-list li .destroy:after {content: '×'; display: block; height: 100%; line-height: 1.1;}
+	.todo-list li:hover .destroy {display: block;}
+	.todo-list li .edit {display: none;}
+	.todo-list li.editing:last-child {margin-bottom: -1px;}
 </style>
